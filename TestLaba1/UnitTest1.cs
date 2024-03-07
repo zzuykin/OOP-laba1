@@ -10,133 +10,204 @@ namespace TestLaba1
         }
 
         [Test]
-        public void TestMethodToString()
+        [TestCase(1, 2, "1/2")]
+        [TestCase(6, 10, "3/5")]
+        [TestCase(10, 5, "2")]
+        [TestCase(6, -2, "-3")]
+        public void TestMethodToString(int a1, int a2, string result)
         {
-            MyRational[] tests = {new(1, 2), new(6, 10), new(10, 5), new(6, -2), new(-3, 7),new(3,-9)};
-            string[] results = { "1/2", "3/5", "2", "-3", "-3/7", "-1/3" };
-            for(int i = 0;i < tests.Length; i++)
-            {
-                Assert.AreEqual(tests[i].ToString(), results[i], $"Неправильный вывод, завален {i+1} тест");
-            }
+            var a = new MyRational(a1, a2);
+            Assert.That(a.ToString() == result, Is.True);
+            //MyRational[] tests = {new(1, 2), new(6, 10), new(10, 5), new(6, -2), new(-3, 7),new(3,-9)};
+            //string[] results = { "1/2", "3/5", "2", "-3", "-3/7", "-1/3" };
+            //for(int i = 0;i < tests.Length; i++)
+            //{
+            //    Assert.AreEqual(tests[i].ToString(), results[i], $"Неправильный вывод, завален {i+1} тест");
+            //}
         }
         [Test]
-        public void TestMethodOperatorPlus() {
-            MyRational[] tests1 = { new(1, 2), new(6, 10), new(-10, 5),new(1,1),new(0,-45)};
-            MyRational[] tests2 = { new(3, 4), new(4, 10), new(34, 25),new(2,2),new(4,2)};
-            string[] results = { "5/4", "1", "-16/25", "2", "2" };
-            for (int i = 0; i < tests1.Length; i++)
-            {
-                Assert.AreEqual((tests1[i] + tests2[i]).ToString(), results[i], $"Неправильный счёт +, завален {i+1} тест");
-            }
+        [TestCase(1, 2, 3, 4, 5, 4)]
+        [TestCase(6, 10, 4, 10, 1, 1)]
+        [TestCase(-10, 5, 34, 25, -16, 25)]
+        [TestCase(1, 1, 2, 2, 2, 1)]
+        [TestCase(0, -45, 4, 2, 2, 1)]
+        public void TestMethodOperatorPlus(int a1, int a2, int b1, int b2, int r1, int r2) {
+            var a = new MyRational(a1, a2);
+            var b = new MyRational(b1, b2);
+
+            var result = a + b;
+
+            Assert.That(result.Numerator == r1, Is.True);
+            Assert.That(result.Denominator == r2, Is.True);
+            //MyRational[] tests1 = { new(1, 2), new(6, 10), new(-10, 5),new(1,1),new(0,-45)};
+            //MyRational[] tests2 = { new(3, 4), new(4, 10), new(34, 25),new(2,2),new(4,2)};
+            //string[] results = { "5/4", "1", "-16/25", "2", "2" };
+            //for (int i = 0; i < tests1.Length; i++)
+            //{
+            //    Assert.AreEqual((tests1[i] + tests2[i]).ToString(), results[i], $"Неправильный счёт +, завален {i+1} тест");
+            //}
         }
         [Test]
-        public void TestMethodOperatorMinus()
+        [TestCase(1, 2, 3, 4, -1, 4)]
+        [TestCase(6,10, 1, 15, 8, 15)]
+        [TestCase(-1, 5, 34, 25, -39, 25)]
+        [TestCase(1, 1, 1, 36, 35, 36)]
+        [TestCase(0, -45, 4, 2, 2, -1)]
+        public void TestMethodOperatorMinus(int a1, int a2, int b1, int b2, int r1, int r2)
         {
-            MyRational[] tests1 = { new(1, 2), new(6, 10), new(-1, 5), new(1, 1), new(0, -45) };
-            MyRational[] tests2 = { new(3, 4), new(1, 15), new(34, 25), new(1, 36), new(4, 2) };
-            string[] results = { "-1/4", "8/15", "-39/25", "35/36", "-2" };
-            for (int i = 0; i < tests1.Length; i++)
-            {
-                Assert.AreEqual((tests1[i] - tests2[i]).ToString(), results[i], $"Неправильный счёт +, завален {i + 1} тест");
-            }
+            var a = new MyRational(a1, a2);
+            var b = new MyRational(b1, b2);
+
+            var result = a - b;
+
+            Assert.That(result.Numerator == r1, Is.True);
+            Assert.That(result.Denominator == r2, Is.True);
+            //MyRational[] tests1 = { new(1, 2), new(6, 10), new(-1, 5), new(1, 1), new(0, -45) };
+            //MyRational[] tests2 = { new(3, 4), new(1, 15), new(34, 25), new(1, 36), new(4, 2) };
+            //string[] results = { "-1/4", "8/15", "-39/25", "35/36", "-2" };
+            //for (int i = 0; i < tests1.Length; i++)
+            //{
+            //    Assert.AreEqual((tests1[i] - tests2[i]).ToString(), results[i], $"Неправильный счёт +, завален {i + 1} тест");
+            //}
         }
         [Test]
-        public void TestMethodOperatorMult()
+        [TestCase(1, 2, 3, 4, 3, 8)]
+        [TestCase(-6, -10, 1, 15, 1, 25)]
+        [TestCase(-1, 5, 34, 25, -34, 125)]
+        [TestCase(-1, 1, 1, -36, 1, 36)]
+        [TestCase(0, -45, 4, 2, 0, -45)]
+        public void TestMethodOperatorMult(int a1, int a2, int b1, int b2, int r1, int r2)
         {
-            MyRational[] tests1 = { new(1, 2), new(-6, -10), new(-1, 5), new(-1, 1), new(0, -45) };
-            MyRational[] tests2 = { new(3, 4), new(1, 15), new(34, 25), new(1, -36), new(4, 2) };
-            string[] results = { "3/8", "1/25", "-34/125", "1/36", "0" };
-            for (int i = 0; i < tests1.Length; i++)
-            {
-                Assert.AreEqual((tests1[i] * tests2[i]).ToString(), results[i], $"Неправильный счёт +, завален {i + 1} тест");
-            }
+            var a = new MyRational(a1, a2);
+            var b = new MyRational(b1, b2);
+
+            var result = a * b;
+
+            Assert.That(result.Numerator == r1, Is.True);
+            Assert.That(result.Denominator == r2, Is.True);
+            //MyRational[] tests1 = { new(1, 2), new(-6, -10), new(-1, 5), new(-1, 1), new(0, -45) };
+            //MyRational[] tests2 = { new(3, 4), new(1, 15), new(34, 25), new(1, -36), new(4, 2) };
+            //string[] results = { "3/8", "1/25", "-34/125", "1/36", "0" };
+            //for (int i = 0; i < tests1.Length; i++)
+            //{
+            //    Assert.AreEqual((tests1[i] * tests2[i]).ToString(), results[i], $"Неправильный счёт +, завален {i + 1} тест");
+            //}
         }
         [Test]
-        public void TestMethodOperatorDiv()
+        [TestCase(1, 2, 3, 4, 2, 3)]
+        [TestCase(-6, -10,1,15, 9, 1)]
+        [TestCase(-1, 5, 34, 25, -5, 34)]
+        [TestCase(-1, 1, 1, -36, 36, 1)]
+        [TestCase(0, -45, 4, 2, 0, -90)]
+        public void TestMethodOperatorDiv(int a1, int a2, int b1, int b2, int r1, int r2)
         {
-            MyRational[] tests1 = { new(1, 2), new(-6, -10), new(-1, 5), new(-1, 1), new(0, -45) };
-            MyRational[] tests2 = { new(3, 4), new(1, 15), new(34, 25), new(1, -36), new(4, 2) };
-            string[] results = { "2/3", "9", "-5/34", "36", "0" };
-            for (int i = 0; i < tests1.Length; i++)
-            {
-                Assert.AreEqual((tests1[i] / tests2[i]).ToString(), results[i], $"Неправильный счёт +, завален {i + 1} тест");
-            }
+            var a = new MyRational(a1, a2);
+            var b = new MyRational(b1, b2);
+
+            var result = a / b;
+
+            Assert.That(result.Numerator == r1, Is.True);
+            Assert.That(result.Denominator == r2, Is.True);
+            //MyRational[] tests1 = { new(1, 2), new(-6, -10), new(-1, 5), new(-1, 1), new(0, -45) };
+            //MyRational[] tests2 = { new(3, 4), new(1, 15), new(34, 25), new(1, -36), new(4, 2) };
+            //string[] results = { "2/3", "9", "-5/34", "36", "0" };
+            //for (int i = 0; i < tests1.Length; i++)
+            //{
+            //    Assert.AreEqual((tests1[i] / tests2[i]).ToString(), results[i], $"Неправильный счёт +, завален {i + 1} тест");
+            //}
         }
         [Test]
-        public void TestMethodOperatorUnarMinus()
+        [TestCase(1, 2, -1, 2)]
+        [TestCase(6, -10, 3, 5)]
+        [TestCase(-4, -2, -2, 1)]
+        public void TestMethodOperatorUnarMinus(int a1, int a2,int r1, int r2)
         {
-            MyRational[] tests = { new(1, 2), new(6, -10),new(-4,-2) };
-            string[] results = { "-1/2", "3/5", "-2"};
-            for (int i = 0; i < tests.Length; i++)
-            {
-                Assert.AreEqual((-tests[i]).ToString(), results[i], $"Неправильный счёт +, завален {i + 1} тест");
-            }
+            var a = new MyRational(a1, a2);
+
+            var result = -a;
+
+            Assert.That(result.Numerator == r1, Is.True);
+            Assert.That(result.Denominator == r2, Is.True);
         }
         [Test]
-        public void TestMethodOperatorEq()
+        [TestCase(1, 2, 2,4,true)]
+        [TestCase(6, -10, -6,10,true)]
+        [TestCase(-4, -2, -8,-4,true)]
+        [TestCase(4, 34, 5,22,false)]
+        public void TestMethodOperatorEq(int a1, int a2, int b1, int b2, bool result)
         {
-            MyRational[] tests1 = { new(1, 2), new(6, -10), new(-4, -2), new(4,34) };
-            MyRational[] tests2 = { new(2, 4), new(-6, 10), new(-8, -4),new(5,22) };
-            bool [] results = { true, true, true,false};
-            for (int i = 0; i < tests1.Length; i++)
-            {
-                Assert.AreEqual(tests1[i] == tests2[i], results[i], $"Неправильный счёт +, завален {i + 1} тест");
-            }
+            var a = new MyRational(a1, a2);
+            var b = new MyRational(b1, b2);
+            Assert.That((a == b) == result, Is.True);
         }
         [Test]
-        public void TestMethodOperatorUnEq()
+        [TestCase(1, 2, 2, 4, false)]
+        [TestCase(6, -10, -6, 10, false)]
+        [TestCase(-4, -2, -8, -4, false)]
+        [TestCase(4, 34, 5, 22, true)]
+        public void TestMethodOperatorUnEq(int a1, int a2, int b1, int b2, bool result)
         {
-            MyRational[] tests1 = { new(1, 2), new(6, -10), new(-4, -2), new(4, 34) };
-            MyRational[] tests2 = { new(2, 4), new(-6, 10), new(-8, -4), new(5, 22) };
-            bool[] results = { false, false, false, true };
-            for (int i = 0; i < tests1.Length; i++)
-            {
-                Assert.AreEqual(tests1[i] != tests2[i], results[i], $"Неправильный счёт +, завален {i + 1} тест");
-            }
+            var a = new MyRational(a1, a2);
+            var b = new MyRational(b1, b2);
+            Assert.That((a != b) == result, Is.True);
         }
         [Test]
-        public void TestMethodOperatorMore()
+        [TestCase(1, 2, 2, 4, false)]
+        [TestCase(6, -10, 6, 10, false)]
+        [TestCase(32, 2, 8, 4, true)]
+        [TestCase(4, 34, 1, 57, true)]
+        public void TestMethodOperatorMore(int a1, int a2, int b1, int b2, bool result)
         {
-            MyRational[] tests1 = { new(1, 2), new(6, -10), new(32, 2), new(4, 34) };
-            MyRational[] tests2 = { new(2, 4), new(6, 10), new(8, 4), new(1, 57) };
-            bool[] results = { false, false, true, true };
-            for (int i = 0; i < tests1.Length; i++)
-            {
-                Assert.AreEqual(tests1[i] > tests2[i], results[i], $"Неправильный счёт +, завален {i + 1} тест");
-            }
+            var a = new MyRational(a1, a2);
+            var b = new MyRational(b1, b2);
+            Assert.That((a > b) == result, Is.True);
+            //MyRational[] tests1 = { new(1, 2), new(6, -10), new(32, 2), new(4, 34) };
+            //MyRational[] tests2 = { new(2, 4), new(6, 10), new(8, 4), new(1, 57) };
+            //bool[] results = { false, false, true, true };
+            //for (int i = 0; i < tests1.Length; i++)
+            //{
+            //    Assert.AreEqual(tests1[i] > tests2[i], results[i], $"Неправильный счёт +, завален {i + 1} тест");
+            //}
         }
         [Test]
-        public void TestMethodOperatorMoreEq()
+        [TestCase(1, 2, 2, 4, true)]
+        [TestCase(6, -10, 6, 10, false)]
+        [TestCase(32, 2, 8, 4, true)]
+        [TestCase(4, 34, 1, 57, true)]
+        public void TestMethodOperatorMoreEq(int a1, int a2, int b1, int b2, bool result)
         {
-            MyRational[] tests1 = { new(1, 2), new(6, -10), new(32, 2), new(4, 34) };
-            MyRational[] tests2 = { new(2, 4), new(6, 10), new(8, 4), new(1, 57) };
-            bool[] results = { true, false, true, true };
-            for (int i = 0; i < tests1.Length; i++)
-            {
-                Assert.AreEqual(tests1[i] >= tests2[i], results[i], $"Неправильный счёт +, завален {i + 1} тест");
-            }
+            var a = new MyRational(a1, a2);
+            var b = new MyRational(b1, b2);
+            Assert.That((a >= b) == result, Is.True);
         }
         [Test]
-        public void TestMethodOperatorLess()
+        [TestCase(1, 2, 2, 4, false)]
+        [TestCase(6, -10, 6, 10, true)]
+        [TestCase(32, 2, 8, 4, false)]
+        [TestCase(4, 34, 4, 34, false)]
+        public void TestMethodOperatorLess(int a1, int a2, int b1, int b2, bool result)
         {
-            MyRational[] tests1 = { new(1, 2), new(6, -10), new(32, 2), new(4, 34) };
-            MyRational[] tests2 = { new(2, 4), new(6, 10), new(8, 4), new(4, 34) };
-            bool[] results = { false, true, false, false };
-            for (int i = 0; i < tests1.Length; i++)
-            {
-                Assert.AreEqual(tests1[i] < tests2[i], results[i], $"Неправильный счёт +, завален {i + 1} тест");
-            }
+            var a = new MyRational(a1, a2);
+            var b = new MyRational(b1, b2);
+            Assert.That((a < b) == result, Is.True);
+            //MyRational[] tests1 = { new(1, 2), new(6, -10), new(32, 2), new(4, 34) };
+            //MyRational[] tests2 = { new(2, 4), new(6, 10), new(8, 4), new(4, 34) };
+            //bool[] results = { false, true, false, false };
+            //for (int i = 0; i < tests1.Length; i++)
+            //{
+            //    Assert.AreEqual(tests1[i] < tests2[i], results[i], $"Неправильный счёт +, завален {i + 1} тест");
+            //}
         }
         [Test]
-        public void TestMethodOperatorLessEqq()
+        [TestCase(1, 2, 2, 4, true)]
+        [TestCase(6, -10, 6, 10, true)]
+        [TestCase(32, 2, 8, 4, false)]
+        [TestCase(4, 34, 4, 34, true)]
+        public void TestMethodOperatorLessEqq(int a1, int a2, int b1, int b2, bool result)
         {
-            MyRational[] tests1 = { new(1, 2), new(6, -10), new(32, 2), new(4, 34) };
-            MyRational[] tests2 = { new(2, 4), new(6, 10), new(8, 4), new(4, 34) };
-            bool[] results = { true, true, false, true };
-            for (int i = 0; i < tests1.Length; i++)
-            {
-                Assert.AreEqual(tests1[i] <= tests2[i], results[i], $"Неправильный счёт +, завален {i + 1} тест");
-            }
+            var a = new MyRational(a1, a2);
+            var b = new MyRational(b1, b2);
+            Assert.That((a <= b) == result, Is.True);
         }
     }
 }

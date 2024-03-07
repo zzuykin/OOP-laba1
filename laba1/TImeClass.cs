@@ -10,76 +10,106 @@ namespace laba1
 
     public abstract class Time
     {
-        public abstract void ShowTime();
+        public abstract string ShowTime();
     }
 
-    public class TimeEuro : Time
+    public sealed class TimeEuro : Time
     {
         protected CultureInfo time = new CultureInfo("es-ES", false);
-        public override void ShowTime()
+        public override string ShowTime()
         {
-            string text = DateTime.Now.ToString(time);
-            Console.WriteLine(text);
+            return DateTime.Now.ToString(time);
         }
     }
     // en-US
     public class TimeUSA : Time
     {
         protected CultureInfo time = new CultureInfo("en-US", false);
-        public override void ShowTime()
+        public override string ShowTime()
         {
-            string text = DateTime.Now.ToString(time);
-            Console.WriteLine(text);
+            return DateTime.Now.ToString(time);
         }
     }
 
-    public abstract class TimeUSADecorator : TimeUSA
+    public abstract class Decorator : Time
     {
-        protected TimeUSA timeUSA;
-        public TimeUSADecorator(TimeUSA timeUSA)
+        private Time item;
+        public Decorator(Time item)
         {
-            this.timeUSA = timeUSA;
+            this.item = item;
         }
-        public override void ShowTime()
+        public override string ShowTime()
         {
-            timeUSA.ShowTime();
+            return item.ShowTime();
         }
     }
-
-    public abstract class TimeEuroDecorator : TimeEuro
+    public class TimeEuroDecorator : Decorator
     {
-        protected TimeEuro timeEuro;
-        public TimeEuroDecorator(TimeEuro timeEuro)
+        public TimeEuroDecorator(TimeEuro item) : base(item) { }
+        public override string ShowTime()
         {
-            this.timeEuro = timeEuro;
-        }
-        public override void ShowTime()
-        {
-            base.ShowTime();
-        }
-    }
-
-    public class FunnyTimeEuro : TimeEuroDecorator
-    {
-        public FunnyTimeEuro(TimeEuro timeEuro) : base(timeEuro) { }
-        public override void ShowTime()
-        {
-            StringBuilder text = new StringBuilder(DateTime.Now.ToString(time));
+            StringBuilder text = new StringBuilder(base.ShowTime());
             text.Insert(8, " !@$ ");
-            Console.WriteLine(text.ToString());
-        }
+            return text.ToString();
+       }
     }
-    public class FunnyTimeUS : TimeUSADecorator
+    public class TimeUSADecorator : Decorator
     {
-        public FunnyTimeUS(TimeUSA timeUSA) : base(timeUSA) { }
-        public override void ShowTime()
+        public TimeUSADecorator(TimeUSA item) : base(item) { }
+        public override string ShowTime()
         {
-            StringBuilder text = new StringBuilder(DateTime.Now.ToString(time));
+            StringBuilder text = new StringBuilder(base.ShowTime());
             text.Insert(8, " !@$ ");
-            Console.WriteLine(text.ToString());
+            return text.ToString();
         }
     }
-   //public abstract class Decorator : Time
+    //public abstract class TimeUSADecorator : TimeUSA
+    //{
+    //    protected TimeUSA timeUSA;
+    //    public TimeUSADecorator(TimeUSA timeUSA)
+    //    {
+    //        this.timeUSA = timeUSA;
+    //    }
+    //    public override void ShowTime()
+    //    {
+    //        timeUSA.ShowTime();
+    //    }
+    //}
+
+    //public abstract class TimeEuroDecorator : TimeEuro
+    //{
+    //    protected TimeEuro timeEuro;
+    //    public TimeEuroDecorator(TimeEuro timeEuro)
+    //    {
+    //        this.timeEuro = timeEuro;
+    //    }
+    //    public override void ShowTime()
+    //    {
+    //        base.ShowTime();
+    //    }
+    //}
+
+    //public class FunnyTimeEuro : TimeEuroDecorator
+    //{
+    //    public FunnyTimeEuro(TimeEuro timeEuro) : base(timeEuro) { }
+    //    public override void ShowTime()
+    //    {
+    //StringBuilder text = new StringBuilder(DateTime.Now.ToString(time));
+    //text.Insert(8, " !@$ ");
+    //        Console.WriteLine(text.ToString());
+    //    }
+    //}
+    //public class FunnyTimeUS : TimeUSADecorator
+    //{
+    //    public FunnyTimeUS(TimeUSA timeUSA) : base(timeUSA) { }
+    //    public override void ShowTime()
+    //    {
+    //        StringBuilder text = new StringBuilder(DateTime.Now.ToString(time));
+    //        text.Insert(8, " !@$ ");
+    //        Console.WriteLine(text.ToString());
+    //    }
+    //}
+    //public abstract class Decorator : Time
     //{
     //    protected Time timeItem;
     //    public Decorator(Time item)
@@ -97,7 +127,7 @@ namespace laba1
     //    public override void ShowTime()
     //    {
     //        base.ShowTime();
-    //        Console.WriteLine("HUI!");
+    //        Console.WriteLine("!");
     //    }
     //}
 
