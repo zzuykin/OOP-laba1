@@ -43,6 +43,7 @@ namespace laba1
             return item.ShowTime();
         }
     }
+
     public class TimeEuroDecorator : Decorator
     {
         public TimeEuroDecorator(TimeEuro item) : base(item) { }
@@ -53,6 +54,7 @@ namespace laba1
             return text.ToString();
        }
     }
+
     public class TimeUSADecorator : Decorator
     {
         public TimeUSADecorator(TimeUSA item) : base(item) { }

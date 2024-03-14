@@ -2,11 +2,21 @@ using laba1;
 
 namespace TestLaba1
 {
+    [TestFixture]
     public class Tests
     {
         [SetUp]
         public void Setup()
         {
+        }
+
+        [Test]
+        [TestCase(1,0)]
+        [TestCase(0,0)]
+        [TestCase(-5,0)]
+        public void TestException(int a,int b)
+        {
+            Assert.Throws<ArgumentException>(() => new MyRational(a, b));
         }
 
         [Test]

@@ -8,32 +8,32 @@ namespace laba1
 {
     public class Node
     {
-        public List<Node> child { get; set; }
-        public string value { get; set; }
+        public List<Node> Child { get; set; }
+        public string Value { get; set; }
         public Node(string value) { 
-            this.value = value;
-            child = new List<Node>();
+            this.Value = value;
+            Child = new List<Node>();
         }
         public void NewChild(Node node)
         {
-            child.Add(node);
+            Child.Add(node);
         }
         public void RemoveChild(Node node)
         {
-            child.Remove(node);
+            Child.Remove(node);
         }
         public void ShowTree()
         {
-            if(child.Count > 0)
+            if(Child.Count > 0)
             {
-                Console.WriteLine($"Потомки узла {value} :");
-                for (int i = 0; i < child.Count; i++)
+                Console.WriteLine($"Потомки узла {Value} :");
+                for (int i = 0; i < Child.Count; i++)
                 {
-                    Console.WriteLine(child[i].value);
+                    Console.WriteLine(Child[i].Value);
                 }
-                for (int i = 0; i < child.Count; i++)
+                for (int i = 0; i < Child.Count; i++)
                 {
-                    child[i].ShowTree();
+                    Child[i].ShowTree();
                 }
             }
         }

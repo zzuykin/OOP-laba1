@@ -10,19 +10,20 @@ namespace laba1
     public class MyRational
     {
         public int Numerator {  get; private set; }
+
         public int Denominator { get; private set; }
+
         public MyRational(int numerator, int denominator)
         {
             if(denominator == 0)
             {
-                Console.WriteLine("Нельзя делить на 0");
-                //throw new InvalidOperationException("Нельзя делить на 0");
-                System.Environment.Exit(0);
+                throw new ArgumentException("Divide by zero!");
             }
             this.Numerator = numerator;
             this.Denominator = denominator;
             this.Shorten();
         }
+
         private int NOD()
         {
             int nod, m = Abs(Numerator), n = Abs(Denominator);
@@ -40,6 +41,7 @@ namespace laba1
             nod = n;
             return nod;
         }
+
         public void Shorten()
         {
             if ( Numerator != 0 )
@@ -54,7 +56,8 @@ namespace laba1
                 }
             }
         }
-        public string ToString()
+
+        public override string ToString()
         {
             if (this.Denominator == 1 || this.Denominator == -1 || this.Numerator == 0)
             {
@@ -66,6 +69,7 @@ namespace laba1
             }
             return Convert.ToString(this.Numerator) + "/" + Convert.ToString(this.Denominator);
         }
+
         public static MyRational operator +(MyRational item1, MyRational item2)
         {
             int numerator, denominator;
@@ -74,6 +78,7 @@ namespace laba1
             MyRational result = new(numerator, denominator);
             return result;
         }
+
         public static MyRational operator -(MyRational item1, MyRational item2)
         {
             int numerator, denominator;
@@ -82,6 +87,7 @@ namespace laba1
             MyRational result = new(numerator, denominator);
             return result;
         }
+
         public static MyRational operator *(MyRational item1, MyRational item2)
         {
             int numerator, denominator;
@@ -90,6 +96,7 @@ namespace laba1
             MyRational result = new(numerator, denominator);
             return result;
         }
+
         public static MyRational operator /(MyRational item1, MyRational item2)
         {
             int numerator, denominator;
@@ -102,33 +109,41 @@ namespace laba1
         {
             return new MyRational(-item.Numerator, item.Denominator);
         }
+
         public double Getvalue()
         {
             return Convert.ToDouble(Numerator) / Convert.ToDouble(Denominator);
         }
+
         public static bool operator == (MyRational left, MyRational right)
         {
             return left.Getvalue() == right.Getvalue();
         }
+
         public static bool operator != (MyRational left, MyRational right)
         {
             return left.Getvalue() != right.Getvalue();
         }
+
         public static bool operator < (MyRational left, MyRational right)
         {
             return left.Getvalue() < right.Getvalue();
         }
+
         public static bool operator >(MyRational left, MyRational right)
         {
             return left.Getvalue() > right.Getvalue();
         }
+
         public static bool operator >= (MyRational left, MyRational right)
         {
             return left.Getvalue() >= right.Getvalue();
         }
+
         public static bool operator <=(MyRational left, MyRational right)
         {
             return left.Getvalue() <= right.Getvalue();
         }
+
     }
 }
