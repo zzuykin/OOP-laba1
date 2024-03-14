@@ -17,7 +17,7 @@ namespace laba1
         {
             if(denominator == 0)
             {
-                throw new ArgumentException("Divide by zero!");
+                throw new ArgumentException("Divide by zero!",nameof(denominator));
             }
             this.Numerator = numerator;
             this.Denominator = denominator;

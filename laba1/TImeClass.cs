@@ -22,7 +22,7 @@ namespace laba1
         }
     }
     // en-US
-    public class TimeUSA : Time
+    public sealed class TimeUSA : Time
     {
         protected CultureInfo time = new CultureInfo("en-US", false);
         public override string ShowTime()
@@ -44,7 +44,7 @@ namespace laba1
         }
     }
 
-    public class TimeEuroDecorator : Decorator
+    public sealed class TimeEuroDecorator : Decorator
     {
         public TimeEuroDecorator(TimeEuro item) : base(item) { }
         public override string ShowTime()
@@ -55,7 +55,7 @@ namespace laba1
        }
     }
 
-    public class TimeUSADecorator : Decorator
+    public sealed class TimeUSADecorator : Decorator
     {
         public TimeUSADecorator(TimeUSA item) : base(item) { }
         public override string ShowTime()

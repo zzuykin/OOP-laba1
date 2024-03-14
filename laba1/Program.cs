@@ -1,12 +1,12 @@
 ﻿using laba1;
 
-task3();
-
 
 //задание 2
 
 void task2()
 {
+    
+
     var item1 = new TimeEuro();
     Console.WriteLine(item1.ShowTime());
 
